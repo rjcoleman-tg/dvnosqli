@@ -59,8 +59,8 @@ sh bin/start-over-clean.sh
 
 For hints and walkthrough steps, see:
 
-- [Neo4j Walkthrough hints and steps](https://github.com/RJColeman/dvnosqli/blob/main/NEO4J-HELP.md)
-- [MongoDB Walkthrough hints and steps](https://github.com/RJColeman/dvnosqli/blob/main/MONGODB-HELP.md)
+- [Neo4j Walkthrough hints and steps](https://github.com/rjcoleman-tg/dvnosqli/blob/main/NEO4J-HELP.md)
+- [MongoDB Walkthrough hints and steps](https://github.com/rjcoleman-tg/dvnosqli/blob/main/MONGODB-HELP.md)
 
 
 # Network Details
