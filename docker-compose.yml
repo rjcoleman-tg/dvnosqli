@@ -1,0 +1,73 @@
+#https://hub.docker.com/_/mongo
+networks:
+  network: {}
+services:
+  php-app:
+    build: ./apps/php/
+    image: "dvnosqli-php:latest"
+    volumes:
+      - "./apps/php/src:/var/www/html"
+    ports: 
+      - "127.0.0.1:8084:8080"
+    networks:
+      - network
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+#  node-app:
+#    build: ./apps/node/
+#    image: "dvnosqli-node:latest"
+#    volumes:
+#      - "./apps/node/src:/var/www/html"
+#    ports: 
+#      - "127.0.0.1:8084:8080"
+#    networks:
+#      - network
+#    stdin_open: true # docker run -i
+#    tty: true        # docker run -t
+  redis:
+    image: redis
+    labels:
+      com.rjcoleman.dvnosqli: "dvnosqli"
+    restart: always
+    ports:
+      - "127.0.0.1:6379:6379"
+    networks:
+      - network
+  neo4j:
+    # protect-toga-hair-oberon-coral-2052
+    image: "neo4j:community"
+    ports:
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
+    volumes: 
+      - "./.data-neo4j:/data:rw"
+      - "./data-load/neo4j:/data-load:r"
+    labels:
+      com.rjcoleman.dvnosqli: "dvnosqli"
+    networks:
+      - network
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    labels:
+      com.rjcoleman.dvnosqli: "dvnosqli"
+    networks:
+      - network
+  mongo-frontend:
+    image: mongo-express
+    depends_on:
+      - mongo
+    environment: 
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    ports: 
+      - "127.0.0.1:8081:8081"
+    labels:
+      com.rjcoleman.dvnosqli: "dvnosqli"
+    networks:
+      - network
+    restart: unless-stopped

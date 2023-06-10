@@ -1,0 +1,5 @@
+.data-neo4j/
+.data-neo4j/**
+vendor/
+vendor/**
+composer.lock
